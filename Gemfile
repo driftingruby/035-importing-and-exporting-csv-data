@@ -29,3 +29,5 @@ gem 'bootstrap-sass'
 gem 'simple_form'
 
 gem 'faker'
+gem 'delayed_job_active_record'
+gem 'daemons'

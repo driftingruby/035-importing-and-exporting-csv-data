@@ -9,10 +9,11 @@ class Product < ApplicationRecord
   end
 
   def self.import(file)
-    CSV.foreach(file.path, headers: true) do |row|
+    CSV.foreach(file, headers: true) do |row|
       product_hash = row.to_hash
       product = find_or_create_by!(name: product_hash['name'], category: product_hash['category'])
       product.update_attributes(product_hash)
     end
+    File.delete(file)
   end
 end

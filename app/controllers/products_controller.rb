@@ -12,7 +12,9 @@ class ProductsController < ApplicationController
   end
 
   def import
-    Product.import(params[:file])
+    path = File.join(Rails.root, 'tmp', 'upload', params[:file].original_filename)
+    file = File.write(path, params[:file].read)
+    ImportFileJob.perform_later(path)
     redirect_to root_url, notice: "Products imported."
   end
 
